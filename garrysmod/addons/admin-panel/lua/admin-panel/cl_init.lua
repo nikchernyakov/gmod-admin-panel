@@ -1,0 +1,1 @@
+AdpPrint(INFO, "Hello from Client")
