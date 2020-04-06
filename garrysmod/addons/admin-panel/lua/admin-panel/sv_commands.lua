@@ -26,7 +26,7 @@ end)
 
 concommand.Add('set-role', function(ply, cmd, args)
     -- Check permissions
-    if ply ~= NULL and not ply:IsSuper()  then
+    if not IsValid(ply) and not ply:IsSuper()  then
         print(ply:GetName())
         AdpPrint(DENIED, 'You are not a superadmin')  
         return
@@ -73,7 +73,7 @@ concommand.Add('set-role', function(ply, cmd, args)
 end)
 
 concommand.Add('set-rang', function(ply, cmd, args)
-    if ply ~= NULL and not ply:IsSuper()  then
+    if not IsValid(ply) and not ply:IsSuper()  then
         AdpPrint(DENIED, 'You are not a superadmin')  
         return
     end
@@ -113,7 +113,7 @@ concommand.Add('set-rang', function(ply, cmd, args)
 end)
 
 concommand.Add('adp-kick', function(ply, cmd, args)
-    if ply ~= NULL and not ply:IsSuper() and not (ply:IsAdmin() and ply:GetRang() > 1) then
+    if not IsValid(ply) and not ply:IsSuper() and not (ply:IsAdmin() and ply:GetRang() > 1) then
         AdpPrint(DENIED, 'You do not have permission for this')  
         return
     end
@@ -136,7 +136,7 @@ concommand.Add('adp-kick', function(ply, cmd, args)
         return
     end
 
-    if targetPlayer:GetRang() > ply:GetRang() then
+    if IsValid(ply) and targetPlayer:GetRang() > ply:GetRang() then
         AdpPrint(DENIED, 'User has rang bigger then you')
     end
 
@@ -145,7 +145,7 @@ concommand.Add('adp-kick', function(ply, cmd, args)
 end)
 
 concommand.Add('adp-ban', function(ply, cmd, args)
-    if ply ~= NULL and not ply:IsSuper() and not (ply:IsAdmin() and ply:GetRang() > 2) then
+    if not IsValid(ply) and not ply:IsSuper() and not (ply:IsAdmin() and ply:GetRang() > 2) then
         AdpPrint(DENIED, 'You do not have permission for this')  
         return
     end
@@ -168,10 +168,9 @@ concommand.Add('adp-ban', function(ply, cmd, args)
         return
     end
 
-    if targetAdpPlayer.role.rang > ply:GetRang() then
+    if IsValid(ply) and targetAdpPlayer.role.rang > ply:GetRang() then
         AdpPrint(DENIED, 'User has rang bigger then you')
     end
-
     
     targetAdpPlayer.ban = {}
     local reason = "You are banned "
