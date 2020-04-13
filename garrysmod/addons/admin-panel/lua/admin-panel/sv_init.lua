@@ -2,11 +2,11 @@ adp.LoadAdpState()
 
 gameevent.Listen('player_connect')
 hook.Add('player_connect', 'admin-panel', function(data)
-    print(data.name.." has connected")
+    adp.print.ServerPrint(data.name.." has connected", INFO)
 
     -- Create AdpPlayer if it is new player
     if not adp.IsPlayerExist(data.name) then
-        AdpPrint(INFO, 'Add new player')
+        adp.print.ServerPrint('Add new player', INFO)
         adp.AddNewPlayer(data.name, data.name)
     end
 
@@ -24,7 +24,7 @@ end)
 
 gameevent.Listen('player_disconnect')
 hook.Add('player_disconnect', 'admin-panel', function(data)
-    print(data.name.." has disconnected")
+    adp.print.ServerPrint(data.name.." has disconnected", INFO)
 
     -- Set offline state
     local adpPly = adp.GetPlayer(data.name)
@@ -40,11 +40,11 @@ end)
 
 hook.Add("PlayerInitialSpawn", "admin-panel", function(ply)
     local adpPly = adp.GetPlayer(ply:GetName())
-    print(util.TableToJSON(adpPly, true))
+    adp.print.ServerPrint(util.TableToJSON(adpPly, true), INFO)
     if adpPly then
         ply:SetRole(adpPly.role)
     else
-        print('Can not find player')
+        adp.print.ServerPrint('Can not find player', ERROR)
     end
 end)
 
@@ -61,3 +61,8 @@ hook.Add("CheckPassword", "admin-panel", function(steamID64, _, _, _, name)
         adpPly.ban = false
     end
 end)
+
+netstream.Hook('client -> server', function(ply, val1, val2, val3)
+    print('Client message')
+end)
+
