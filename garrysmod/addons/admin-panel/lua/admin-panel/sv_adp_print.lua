@@ -21,7 +21,7 @@ function adp.print.ClientPrint(ply, console, message, status)
     if console then
         netstream.Start(ply, 'server-console-message', adp.print.GetMessage(message, status))
     else
-        ply:ChatPrint(message)
+        ply:ChatPrint(adp.print.GetMessage(message, status))
     end
 end
 

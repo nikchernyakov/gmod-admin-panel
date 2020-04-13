@@ -17,6 +17,8 @@ function Command:New(ply, console, commandType, args)
 
     if IsValid(ply) then
         newObj.adpPly = adp.GetPlayer(ply:GetName())
+    else
+        ply = nil
     end
 
     self.__index = self
