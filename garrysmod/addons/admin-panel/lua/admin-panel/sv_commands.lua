@@ -43,7 +43,7 @@ function Command:Print(message, status)
 end
 
 function Command.CheckCommand(commandType)
-    for currentType in table.GetKeys(Command.executor) do
+    for currentType, _ in pairs(Command.executor) do
         if commandType == currentType then
             return currentType
         end
