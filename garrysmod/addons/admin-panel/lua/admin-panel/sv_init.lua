@@ -71,6 +71,7 @@ hook.Add("PlayerSay", "admin-panel", function(ply, text)
         local command = Command:New(ply, false, commandType, args)
         command:Execute()
         return ''
+    end
 end)
 
 netstream.Hook('client -> server', function(ply, val1, val2, val3)
