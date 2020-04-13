@@ -89,12 +89,7 @@ Command.executor[Command.SET_ROLE] = function (command)
         return
     end
 
-    command:Print("Set " .. role .. " role for " .. name, INFO)
-    targetPlayer:SetRole(role)
-
     if role == ADMIN_TYPE then
-        targetPlayer.role.rang = rang
-
         if rang < 1 or rang > 3 then
             command:Print('Rang must be in range [1;3]', ERROR)
             return
@@ -104,6 +99,8 @@ Command.executor[Command.SET_ROLE] = function (command)
             command:Print('User already has this rang.', INFO)
             return
         end
+
+        targetPlayer.role.rang = rang
     end
 
     if targetPlayer.online then
@@ -115,8 +112,9 @@ Command.executor[Command.SET_ROLE] = function (command)
         end
     end
 
+    targetPlayer:SetRole(role)
     adp.SaveAdpState()
-    command:Print('User role was changed', INFO)
+    command:Print("Set " .. role .. " role for " .. name, INFO)
 end
 
 Command.executor[Command.SET_RANG] = function (command)
