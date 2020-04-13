@@ -34,6 +34,8 @@ function adp.LoadAdpState()
     end
 
     for k, ply in pairs(dataTable) do
-        adp.Players[k] = AdpPlayer:Clone(ply)
+        local adpPly = AdpPlayer:Clone(ply)
+        adpPly.online = false
+        adp.Players[k] = adpPly
     end
 end
