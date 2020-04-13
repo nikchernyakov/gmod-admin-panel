@@ -42,6 +42,15 @@ function Command:Print(message, status)
     adp.Print(self.ply, self.console, message, status)
 end
 
+function Command.CheckCommand(commandType)
+    for currentType in table.GetKeys(Command.executor) do
+        if commandType == currentType then
+            return currentType
+        end
+    end
+    return false
+end
+
 -- Executors
 Command.executor = {}
 Command.executor[Command.CURRENT_PLAYERS] = function (command)

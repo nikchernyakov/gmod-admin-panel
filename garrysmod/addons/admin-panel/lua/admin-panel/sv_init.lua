@@ -62,6 +62,17 @@ hook.Add("CheckPassword", "admin-panel", function(steamID64, _, _, _, name)
     end
 end)
 
+-- Check chat commands
+hook.Add("PlayerSay", "admin-panel", function(ply, text)
+	local args = string.Explode(' ', text)
+    local commandType = table.remove(args, 1)
+    if Command.CheckCommand(commandType) then
+        ply:ChatPrint(text)
+        local command = Command:New(ply, false, commandType, args)
+        command:Execute()
+        return ''
+end)
+
 netstream.Hook('client -> server', function(ply, val1, val2, val3)
     print('Client message')
 end)
