@@ -92,6 +92,25 @@ Command.executor[Command.SET_ROLE] = function (command)
 
     if role == ADMIN_TYPE then
         targetPlayer.role.rang = rang
+
+        if rang < 1 or rang > 3 then
+            command:Print('Rang must be in range [1;3]', ERROR)
+            return
+        end
+    
+        if targetPlayer.role.rang == rang then
+            command:Print('User already has this rang.', INFO)
+            return
+        end
+    end
+
+    if targetPlayer.online then
+        local targetPly = FindPlayerByName(name)
+        if targetPly then
+            adp.Print(targetPly, false, "Your role was changed to " .. role)
+        else
+            command:Print('Can not find online player to send him a message', ERROR)
+        end
     end
 
     adp.SaveAdpState()
@@ -131,6 +150,15 @@ Command.executor[Command.SET_RANG] = function (command)
     if targetPlayer.role.rang == rang then
         command:Print('User already has this rang.', INFO)
         return
+    end
+
+    if targetPlayer.online then
+        local targetPly = FindPlayerByName(name)
+        if targetPly then
+            adp.Print(targetPly, false, "Your rang was changed to " .. rang)
+        else
+            command:Print('Can not find online player to send him a message', ERROR)
+        end
     end
 
     targetPlayer.role.rang = rang

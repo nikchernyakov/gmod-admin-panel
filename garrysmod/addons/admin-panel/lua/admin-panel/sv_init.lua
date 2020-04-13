@@ -51,7 +51,7 @@ end)
 -- Check Player access
 hook.Add("CheckPassword", "admin-panel", function(steamID64, _, _, _, name)
     local adpPly = adp.GetPlayer(name)
-	if not adpPly:IsBanned() then
+	if not (adpPly and adpPly:IsBanned()) then
         return true
 	end
 
